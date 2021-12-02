@@ -19,6 +19,11 @@ spring:
           - localhost
           zkNodes:
           - localhost
+  sleuth:
+    sampler:
+      percentage: 1
+  zipkin:
+    base-url: http://zipkin:9411     
   datasource:
     password: '{cipher}6b16fdf2c3c80dfae9426bcb7d4319ca59f339fbd22af68d03b1158460bcc5d5'
     username: root
