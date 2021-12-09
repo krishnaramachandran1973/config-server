@@ -1,8 +1,25 @@
 spring:
+  profiles: 
+    active: "dev, native"  
   application:
-    name: config-server
-  profiles:    active:    - dev
-    - native
+    name: config-server  
   cloud:    config:      server:        native:          search-locations:          - classpath:/config
 server:  port: 8888
-encrypt:  key: secretkey                
+encrypt:  key: secretkey
+  
+---
+
+spring:
+  profiles: 
+    active: "prod"  
+  application:
+    name: config-server  
+  cloud:
+    config:
+      server:
+        git:          uri: https://github.com/krishnaramachandran1973/ms-in-action-config.git
+          default-label: main
+server:
+  port: 8888
+encrypt:
+  key: secretkey               

@@ -2,6 +2,9 @@ server:
   port: 8081
 example:
   property: I AM DEV
+  redis:
+    server: ${REDIS_SERVER:redis}
+    port: 6379
 spring:
   cloud:
     stream:
@@ -13,13 +16,18 @@ spring:
       kafka:
         binder:
           brokers:
-          - localhost
+          - ${KAFKA_BROKER:kafka}
           zkNodes:
-          - localhost
+          - ${ZOOKEEPER:zookeeper}
+  sleuth:
+    sampler:
+      percentage: 1
+  zipkin:
+    base-url: http://${ZIPKIN_SERVER:zipkin}:9411     
   datasource:
-    password: root
+    password: '{cipher}6b16fdf2c3c80dfae9426bcb7d4319ca59f339fbd22af68d03b1158460bcc5d5'
     username: root
-    url: jdbc:mysql://localhost:3306/ostock_dev
+    url: jdbc:mysql://${MYSQL_SERVER:localhost}:3306/ostock_dev 
   jpa:
     hibernate:
       ddl-auto: update     
@@ -31,7 +39,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      default-zone: http://${EUREKA_SERVER:localhost}:8761/eureka/
 management:
   endpoints:
     enabled-by-default: true
